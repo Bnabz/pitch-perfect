@@ -1,0 +1,3 @@
+Hello {{user.username}}
+Welcome to Pitch-perfect.
+Feel free to browse through pitches, and practice on making that perfect pitch that could change your life.
