@@ -1,4 +1,4 @@
-<nav class="mb-1 navbar navbar-expand-lg navbar-dark ">
+<div class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -7,11 +7,14 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"> Watchlist </a>
+            <a class="navbar-brand" href="/"> Pitch-Perfect</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/">Home</a></li>
+                <li><a href="/">All</a></li>
+                <li><a href="/">Pick-up Lines</a></li>
+                <li><a href="/">Product Pitches</a></li>
+                <li><a href="/">Business ideas</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               {% if current_user.is_authenticated %}
@@ -25,4 +28,4 @@
         </div>
           
     </div>
-</nav>
+</div>

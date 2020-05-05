@@ -14,7 +14,7 @@ def index():
     pick_up = Post.query.filter_by(category = 'pickup_line').all() 
     product = Post.query.filter_by(category = 'product').all()
     business = Post.query.filter_by(category = 'business').all()
-    return render_template('navbar.html', pick_up = pick_up, product = product, business = business, posts = posts)
+    return render_template('index.html', pick_up = pick_up, product = product, business = business, posts = posts)
 
 
 
