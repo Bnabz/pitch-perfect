@@ -1,11 +1,14 @@
-{% extends 'bootstrap/base.html'%}
+{% extends 'base.html'%}
+{% import 'macros.html' as macro%}
+
 {% block styles%}
     {{ super() }}
     <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
    
 {% endblock %}
 
-<!-- Navbar block  --> 
-{% block navbar %}
-    {% include 'navbar.html' %}
+
+
+{% block content %}
+<div>{{ macro.post_display(posts)}}</div>
 {% endblock %}

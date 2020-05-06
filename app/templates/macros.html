@@ -1,0 +1,33 @@
+{% macro post_display(posts) %}
+<div class="card-columns">
+    {% if posts %}
+    {% for each_post in posts %}
+    <div class="card">
+        <div class="card-body">
+            <p>{{each_post.post_content}}</p>
+            <p>Category: {{each_post.category}}</p>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+{% endmacro %}
+
+
+{% macro comments_display(comments) %}
+<div class="card-columns">
+    {% for each_comment in comments %}
+    <div class="card">
+        <div class="card-header">
+            {{comment.post.title}}
+        </div>
+        <div class="card-body">
+            <p>{{each_comment.comment}}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endmacro %}
+
+

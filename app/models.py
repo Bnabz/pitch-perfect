@@ -4,15 +4,19 @@ from flask_login import UserMixin
 from . import login_manager
 from datetime import datetime
 
+
+
 @login_manager.user_loader
-def user_loader(user_id):
+def load_user(user_id):
     return User.query.get(int(user_id))
+
+
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(255),unique = True,nullable = False)
-    email  = db.Column(db.String(255),unique = True,nullable = False)
+    email  = db.Column(db.String(255),nullable = False)
     secure_password = db.Column(db.String(255),nullable = False)
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
@@ -40,9 +44,11 @@ class User(UserMixin, db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
     
     def __repr__(self):
         return f'User {self.username}'
+    
 
 
 
@@ -59,7 +65,7 @@ class Post(db.Model):
     upvote = db.relationship('Upvote',backref='post',lazy='dynamic')
     downvote = db.relationship('Downvote',backref='post',lazy='dynamic')
 
-    def save_post(self):
+    def save(self):
         db.session.add(self)
         db.session.commit()
 
@@ -93,6 +99,9 @@ class Upvote(db.Model):
         upvote = Upvote.query.filter_by(post_id=id).all()
         return upvote
 
+    def __repr__(self):
+        return f'{self.user_id}:{self.pitch_id}'
+
 
 
 class Downvote(db.Model):
@@ -111,6 +120,9 @@ class Downvote(db.Model):
         downvote = Downvote.query.filter_by(post_id=id).all()
         return downvote
 
+     def __repr__(self):
+        return f'{self.user_id}:{self.pitch_id}'
+
   
 
 class Comment(db.Model):
@@ -120,7 +132,7 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'),nullable = False)
     post_id = db.Column(db.Integer,db.ForeignKey('posts.id'),nullable = False)
 
-    def save_c(self):
+    def save(self):
         db.session.add(self)
         db.session.commit()
 
@@ -133,5 +145,7 @@ class Comment(db.Model):
     
     def __repr__(self):
         return f'comment:{self.comment}'
+
+
 
 

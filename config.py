@@ -12,7 +12,7 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+   
 
 
 
@@ -29,7 +29,8 @@ class ProdConfig(Config):
     '''
     pass
 
-
+class TestConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://nabz:none2@localhost/pitch_perfect_test'
 class DevConfig(Config):
     '''
     Development  configuration child class
@@ -43,5 +44,5 @@ class DevConfig(Config):
 config_options = {
 'development':DevConfig,
 'production':ProdConfig,
-
+'test':TestConfig
 }
