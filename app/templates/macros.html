@@ -1,17 +1,102 @@
-{% macro post_display(posts) %}
-<div class="card-columns">
-    {% if posts %}
-    {% for each_post in posts %}
-    <div class="card">
-        <div class="card-body">
-            <p>{{each_post.post_content}}</p>
-            <p>Category: {{each_post.category}}</p>
+{% macro post_display(all_posts) %}
+{% if all_posts %}
+<div class="container">
+    <div class="row">
+        <div class="card-columns">
+        
+        {% for each_post in all_posts %}
+        <div class="card">
+            <div class="card-body">
+                <p>{{each_post.post_content}}</p>
+                <p>: {{each_post.category}}</p>
+            </div> 
+            <div class="card-footer">
+                <span> <a href="{{url_for('main.like',id = each_post.id)}}"><i class="fa fa-thumbs-up" style="font-size:18px;color: rgb(35, 19, 126)"></i></a> hello{{each_post.upvote.count()}}</span>
+                <span> hello</span>
+            </div>
         </div>
+        {% endfor %}
+     </div>
     </div>
-    {% endfor %}
-    {% endif %}
 </div>
+{% endif %}
 {% endmacro %}
+
+
+{% macro post_display(pickup_posts) %}
+{% if pickup_posts %}
+<div class="container">
+    <div class="row">
+        <div class="card-columns">
+        
+        {% for each_post in pickup_posts %}
+        <div class="card">
+            <div class="card-body">
+               
+            </div> 
+            <div class="card-footer">
+                <p>hello</p>
+            </div>
+        </div>
+        {% endfor %}
+     </div>
+    </div>
+</div>
+{% endif %}
+{% endmacro %}
+
+
+
+{% macro post_display(product_posts) %}
+{% if product_posts %}
+<div class="container">
+    <div class="row">
+        <div class="card-columns">
+        
+        {% for each_post in product_posts %}
+        <div class="card">
+            <div class="card-body">
+                <p>{{each_post.post_content}}</p>
+                <p>Category: {{each_post.category}}</p>
+            </div> 
+        </div>
+        {% endfor %}
+     </div>
+    </div>
+</div>
+{% endif %}
+{% endmacro %}
+
+
+
+{% macro post_display(business_posts) %}
+{% if business_posts %}
+<div class="container">
+    <div class="row">
+        <div class="card-columns">
+        
+        {% for biz_post in business_posts %}
+        <div class="card">
+            <div class="card-body">
+                <p> new biz</p>
+                <p>{{biz_post.post_content}}</p>
+                <p>Category: {{biz_post.category}}</p>
+            </div> 
+            <div class="card-footer">
+                <p>hello biz footer</p>
+                <a href="/comment/{{biz_post.id}}"><button class="btn btn-info">Comment</button></a>
+                <a href="/like/{{biz_post.id}}"><button class="btn btn-success">Like {{biz_post.upvote.count()}}</button></a>
+                <h1>{{upvotes}}</h1>
+                <a href="/dislike/{{biz_post.id}}"><button class="btn btn-danger">Dislike {{biz_post.downvote.count()}}</button></a>
+            </div>
+        </div>
+        {% endfor %}
+     </div>
+    </div>
+</div>
+{% endif %}
+{% endmacro %}
+
 
 
 {% macro comments_display(comments) %}

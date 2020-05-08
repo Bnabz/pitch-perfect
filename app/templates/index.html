@@ -1,6 +1,41 @@
 {% extends 'base.html' %}
+{% import 'macros.html' as macro%}
 {% block styles%}
     {{ super() }}
     <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
    
+{% endblock %}
+{% block content %}
+<!-- <div>{{ macro.post_display(posts)}}</div> -->
+<ul class="nav nav-pills nav-justified nav-fill" role="tablist">
+    <li class="nav-item" >
+        <a id ="cats" class="nav-link" data-toggle="tab" href="#all"><strong>All Pitches</strong> </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id ="pu" data-toggle="tab" href="#pick_up">Pick_up Lines</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id ="prod" data-toggle="tab" href="#products">Products</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id ="biz"data-toggle="tab" href="#business">Business</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div  class="container tab-pane active" id="all"><br>
+      {{ macro.post_display(all_posts)}}
+    </div>
+    <div  class="container tab-pane fade" id="pick_up"><br>
+        {{ macro.post_display(pickup_posts)}}
+    </div>
+    <div  class="container tab-pane fade" id="products"><br>
+        {{ macro.post_display(product_posts) }}
+    </div>
+    <div  class="container tab-pane fade" id="business"><br>
+        {{ macro.post_display(business_posts) }}
+        
+    </div>
+</div>
+
 {% endblock %}
