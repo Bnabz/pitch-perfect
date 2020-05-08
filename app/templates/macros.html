@@ -12,7 +12,7 @@
             </div> 
             <div class="card-footer">
                 <span> <a href="{{url_for('main.like',id = each_post.id)}}"><i class="fa fa-thumbs-up" style="font-size:18px;color: rgb(35, 19, 126)"></i></a> hello{{each_post.upvote.count()}}</span>
-                <span> hello</span>
+                
             </div>
         </div>
         {% endfor %}
@@ -83,8 +83,7 @@
                 <p>Category: {{biz_post.category}}</p>
             </div> 
             <div class="card-footer">
-                <p>hello biz footer</p>
-                <a href="/comment/{{biz_post.id}}"><button class="btn btn-info">Comment</button></a>
+                <a href="/comments/{{biz_post.id}}"><button class="btn btn-info">Comment</button></a>
                 <a href="/like/{{biz_post.id}}"><button class="btn btn-success">Like {{biz_post.upvote.count()}}</button></a>
                 <h1>{{upvotes}}</h1>
                 <a href="/dislike/{{biz_post.id}}"><button class="btn btn-danger">Dislike {{biz_post.downvote.count()}}</button></a>
@@ -99,12 +98,13 @@
 
 
 
-{% macro comments_display(comments) %}
+{% macro display_comments(all_comments) %}
+{% if all_comments %}
 <div class="card-columns">
-    {% for each_comment in comments %}
+    {% for each_comment in all_comments %}
     <div class="card">
         <div class="card-header">
-            {{comment.post.title}}
+            {{each_comment.post.title}}
         </div>
         <div class="card-body">
             <p>{{each_comment.comment}}</p>
@@ -112,7 +112,7 @@
     </div>
     {% endfor %}
 </div>
-
+{% endif %}
 {% endmacro %}
 
 

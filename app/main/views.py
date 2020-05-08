@@ -116,13 +116,13 @@ def like(id):
 @login_required
 def dislike(id):
     post = Post.query.get(id)
-    new_downvote = Downvote(post=post, upvote=1)
+    new_downvote = Downvote(post=post, downvote=1)
     new_downvote.save()
     return redirect(url_for('main.index',id = id))
    
 
 
-@main.route('/comment/<int:post_id>', methods = ['POST','GET'])
+@main.route('/comments/<int:post_id>', methods = ['POST','GET'])
 @login_required
 def comment(post_id):
     form = CommentForm()
@@ -136,6 +136,6 @@ def comment(post_id):
         new_comment = Comment(comment = comment,user_id = user_id,post_id = post_id)
         new_comment.save()
         return redirect(url_for('.comment', post_id = post_id))
-    return render_template('comment.html', form =form, post = post,all_comments=all_comments)
+    return render_template('comments.html', form =form, post = post,all_comments=all_comments)
 
 
