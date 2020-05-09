@@ -57,6 +57,7 @@ class Post(db.Model):
 
     id = db.Column(db.Integer,primary_key = True)
     post_title = db.Column(db.String)
+    author = db.Column(db.String(255))
     post_content = db.Column(db.String)
     posted_at = db.Column(db.DateTime,default=datetime.utcnow)
     category = db.Column(db.String)

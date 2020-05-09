@@ -4,7 +4,7 @@ from .forms import UpdateProfile,PostForm,CommentForm
 from ..models import User,Post,Comment,Upvote,Downvote
 from flask_login import login_required, current_user
 from .. import db,photos
-
+from datetime import datetime
 
 
 @main.route('/')
@@ -13,27 +13,8 @@ def index():
     pickup_posts = Post.query.filter_by(category = 'pickup_line').all() 
     product_posts = Post.query.filter_by(category = 'product').all()
     business_posts= Post.query.filter_by(category = 'business').all()
+  
     return render_template('index.html',all_posts = all_posts,pickup_posts = pickup_posts,product_posts = product_posts, business_posts = business_posts )
-
-
-@main.route('/pickup_lines')
-def pick_up():
-    posts = Post.query.filter_by(category = 'pickup_line').all() 
-    return render_template('display_posts.html', posts = posts)
-
-
-@main.route('/products')
-def product():
-    posts = Post.query.filter_by(category = 'product').all()
-    return render_template('display_posts.html',posts = posts)
-
-
-@main.route('/business')
-def business():
-    posts = Post.query.filter_by(category = 'business').all()
-    return render_template('display_posts.html', posts = posts)
-
-
 
 
 
@@ -42,11 +23,11 @@ def business():
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
     user_id = current_user._get_current_object().id
-    posts = Post.query.filter_by(user_id = user_id).all()
+    profile_posts = Post.query.filter_by(user_id = user_id).all()
     if user is None:
         abort(404)
 
-    return render_template("profile/profile.html", user = user,posts=posts)
+    return render_template("profile/profile.html", user = user,profile_posts=profile_posts)
 
 
 @main.route('/user/<uname>/update',methods = ['GET','POST'])
@@ -88,9 +69,10 @@ def new_post():
     if form.validate_on_submit():
         post_title = form.title.data
         post_content = form.post.data
-        category = form.category.data
-        user_id = current_user._get_current_object().id
-        new_post_object = Post(post_content=post_content,user_id=user_id,category=category,post_title=post_title)
+        category = form.category.data 
+        author = current_user._get_current_object().username 
+        posted_at = datetime.today()
+        new_post_object = Post(post_content=post_content,category=category,post_title=post_title,author = author,posted_at=posted_at)
         new_post_object.save()
         return redirect(url_for('main.index'))
         

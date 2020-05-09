@@ -1,41 +1,60 @@
-{% macro post_display(all_posts) %}
+{% macro all_post_display(all_posts) %}
 {% if all_posts %}
 <div class="container">
     <div class="row">
         <div class="card-columns">
         
         {% for each_post in all_posts %}
+        <hr/>
         <div class="card">
+            <div class="card-title">
+                <p><strong>Title: </strong>{{each_post.post_title}}</p> 
+            </div>
             <div class="card-body">
                 <p>{{each_post.post_content}}</p>
-                <p>: {{each_post.category}}</p>
+                <p><strong>Category:</strong> {{each_post.category}}</p>
+                <p><strong>Author:</strong> {{each_post.author}}</p>
+                <p><strong>Date created:</strong> {{each_post.posted_at.strftime('%Y-%m-%d')}}</p>
             </div> 
+            
             <div class="card-footer">
-                <span> <a href="{{url_for('main.like',id = each_post.id)}}"><i class="fa fa-thumbs-up" style="font-size:18px;color: rgb(35, 19, 126)"></i></a> hello{{each_post.upvote.count()}}</span>
-                
+                <a href="/comments/{{each_post.id}}"><button class="btn btn-info">Comments</button></a>
+                <a href="/like/{{each_post.id}}"><button class="btn btn-success">Like {{each_post.upvote.count()}}</button></a>
+                <a href="/dislike/{{each_post.id}}"><button class="btn btn-danger">Dislike {{each_post.downvote.count()}}</button></a>
             </div>
+            
         </div>
         {% endfor %}
      </div>
     </div>
 </div>
+
 {% endif %}
 {% endmacro %}
 
 
-{% macro post_display(pickup_posts) %}
+{% macro pickup_post_display(pickup_posts) %}
 {% if pickup_posts %}
 <div class="container">
     <div class="row">
         <div class="card-columns">
         
-        {% for each_post in pickup_posts %}
+        {% for pick_post in pickup_posts %}
+        <hr/>
         <div class="card">
+            <div class="card-title">
+                <p><strong>Title: </strong>{{pick_post.post_title}}</p> 
+            </div>
             <div class="card-body">
-               
+                <p>{{pick_post.post_content}}</p>
+                <p><strong>Category:</strong> {{pick_post.category}}</p>
+                <p><strong>Author:</strong> {{pick_post.author}}</p>
+                <p><strong>Date created:</strong> {{pick_post.posted_at.strftime('%Y-%m-%d')}}</p>
             </div> 
             <div class="card-footer">
-                <p>hello</p>
+                <a href="/comments/{{pick_post.id}}"><button class="btn btn-info">Comments</button></a>
+                <a href="/like/{{pick_post.id}}"><button class="btn btn-success">Like {{pick_post.upvote.count()}}</button></a>
+                <a href="/dislike/{{pick_post.id}}"><button class="btn btn-danger">Dislike {{pick_post.downvote.count()}}</button></a>
             </div>
         </div>
         {% endfor %}
@@ -47,18 +66,28 @@
 
 
 
-{% macro post_display(product_posts) %}
+{% macro product_post_display(product_posts) %}
 {% if product_posts %}
 <div class="container">
     <div class="row">
         <div class="card-columns">
-        
-        {% for each_post in product_posts %}
+        {% for product_post in product_posts %}
+        <hr/>
         <div class="card">
+            <div class="card-title">
+                <p><p><strong>Title: </strong>{{product_post.post_title}}</p> 
+            </div>
             <div class="card-body">
-                <p>{{each_post.post_content}}</p>
-                <p>Category: {{each_post.category}}</p>
+                <p>{{product_post.post_content}}</p>
+                <p><strong>Category:</strong> {{product_post.category}}</p>
+                <p><strong>Author:</strong> {{product_post.author}}</p>
+                <p><strong>Date created:</strong> {{product_post.posted_at.strftime('%Y-%m-%d')}}</p>
             </div> 
+            <div class="card-footer">
+                <a href="/comments/{{product_post.id}}"><button class="btn btn-info">Comments</button></a>
+                <a href="/like/{{product_post.id}}"><button class="btn btn-success">Like {{product_post.upvote.count()}}</button></a>
+                <a href="/dislike/{{product_post.id}}"><button class="btn btn-danger">Dislike {{product_post.downvote.count()}}</button></a>
+            </div>
         </div>
         {% endfor %}
      </div>
@@ -69,23 +98,29 @@
 
 
 
-{% macro post_display(business_posts) %}
+{% macro business_post_display(business_posts) %}
 {% if business_posts %}
 <div class="container">
     <div class="row">
         <div class="card-columns">
         
         {% for biz_post in business_posts %}
+        <hr/>
         <div class="card">
+            <div class="card-title">
+              <p><strong>Title: </strong>{{biz_post.post_title}}</p> 
+            </div>
+                
+
             <div class="card-body">
-                <p> new biz</p>
                 <p>{{biz_post.post_content}}</p>
-                <p>Category: {{biz_post.category}}</p>
+                <p><strong>Category:</strong>  {{biz_post.category}}</p>
+                <p><strong>Author:</strong> {{biz_post.author}}</p>
+                <p><strong>Date created:</strong> {{biz_post.posted_at.strftime('%Y-%m-%d')}}</p>
             </div> 
             <div class="card-footer">
-                <a href="/comments/{{biz_post.id}}"><button class="btn btn-info">Comment</button></a>
+                <a href="/comments/{{biz_post.id}}"><button class="btn btn-info">Comments</button></a>
                 <a href="/like/{{biz_post.id}}"><button class="btn btn-success">Like {{biz_post.upvote.count()}}</button></a>
-                <h1>{{upvotes}}</h1>
                 <a href="/dislike/{{biz_post.id}}"><button class="btn btn-danger">Dislike {{biz_post.downvote.count()}}</button></a>
             </div>
         </div>
@@ -96,6 +131,44 @@
 {% endif %}
 {% endmacro %}
 
+
+
+
+{% macro profile_post_display(profile_posts) %}
+{% if profile_posts %}
+
+<div class="container">
+    <div class="row">
+        <div class="card-columns">
+        
+        {% for each_post in profile_posts %}
+        <hr/>
+        <div class="card">
+            <div class="card-title">
+                <p><strong>Title: </strong>{{each_post.post_title}}</p> 
+            </div>
+            <div class="card-body">
+                <p>{{each_post.post_content}}</p>
+                <p><strong>Category:</strong> {{each_post.category}}</p>
+                <p><strong>Date created:</strong> {{each_post.posted_at.strftime('%Y-%m-%d')}}</p>
+            </div> 
+            
+            <div class="card-footer">
+                <a href="/comments/{{each_post.id}}"><button class="btn btn-info">Comments</button></a>
+                <a href="/like/{{each_post.id}}"><button class="btn btn-success">Like {{each_post.upvote.count()}}</button></a>
+                <a href="/dislike/{{each_post.id}}"><button class="btn btn-danger">Dislike {{each_post.downvote.count()}}</button></a>
+            </div>
+           
+            
+        </div>
+        {% endfor %}
+     </div>
+    </div>
+</div>
+
+
+{% endif %}
+{% endmacro %}
 
 
 {% macro display_comments(all_comments) %}
